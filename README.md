@@ -20,3 +20,42 @@ When a player finds a spirit he treats him with what he needs and then he has to
 
 **Other possible functionality:** Every spirit has his “little spirits” 
 
+### **Characters:**
+**Player Character**
+- A boy trouble who broke the portal
+- Want to fix his mistake and free his mentor from the other side of the portal
+
+**Female Mentor ‘Guide’ (serve as a player guide through the gameplay)**
+- Is a spiritual leader of some kind, has some ancestral knowledge.
+- Was researching the magical/spirit activity in this magical forest.
+- Has an apprentice which is the player character.
+- They found the source of the spiritual and magical activity which is the Portal in the forest.
+- The player character breaks the portal when she is interacting with it.
+- She ended up trapped on the other side of the portal.
+- the main character wants to rescue her
+- she is very wise and knowledgeable and communicates with the player, she is a guide for how the player should handle the spirits and What to do next
+- she had telepathic skills and can communicate with the player when though she is trapped on the other side of the portal (but the player can’t answer)
+
+**The spirits (1 for the first presentation and 3 for the final game should be enough)**
+- They are formed by abstract shapes and lights
+- the spirit(”s”) are ”one” but split into several parts, these parts have their own names and characteristics and goals (the or separates goals are the tasks that should be performed by - - the player in order to save the island) (but the overall goal of the whole spirit is to take over the world)
+
+**Minor Spirits**
+- Represented by small floating light orbs.
+- There are 2 types of minor spirits, neutral or evil
+- Evil minor spirits follows the Player character and if attached they slow down the player’s speed
+- The neutral minor spirits have a different light color from the evil ones and mostly just hang close to some flowers or rocks or other environment assets. They can serve as Dialogue dynamic or just cute animations through the environment.
+
+### **World:**
+**Locations of the spirits/ quests**
+- cave: the cave-quest is to collect water drops from the cave roof? the spirit wants this magical cave-water. Or could be to dig up something (gold?) from the cave.
+- river: the river-quest is to fish up something from the bottom of the river, and old token that the spirit lost?
+- big ancient tree: the tree-quest is to climb the tree in order to reach a specific fruit or flower at the top of the tree to give to the spirit.
+
+**Environment**
+- a magical forest on an island?
+- A portal for the spirits
+- A river/lake
+- A cave deep in the forest.
+- A big ancient tree.
+

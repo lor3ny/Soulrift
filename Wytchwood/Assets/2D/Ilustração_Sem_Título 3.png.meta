@@ -94,7 +94,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Windows Store Apps
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -118,14 +118,14 @@ TextureImporter:
         width: 1024
         height: 1024
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cf6d3d8b622796945a8b1dd52bd186d1
-      internalID: 441172905
+      spriteID: b7c2371f28c215e49aff2856f7553903
+      internalID: 492430351
       vertices: []
       indices: 
       edges: []
@@ -139,14 +139,14 @@ TextureImporter:
         width: 1024
         height: 1024
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 730c0d2018017e64c9d7a44aeaca2287
-      internalID: -1732042776
+      spriteID: fd0d0d5fadd7b874db2da9102631ffe1
+      internalID: 1023165898
       vertices: []
       indices: 
       edges: []
@@ -160,14 +160,14 @@ TextureImporter:
         width: 1024
         height: 1024
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f11c940ecc9017c4c9f5b62221cc58da
-      internalID: -826754927
+      spriteID: c8fd3505b73318e4191cee108745484e
+      internalID: -737522598
       vertices: []
       indices: 
       edges: []
@@ -181,14 +181,14 @@ TextureImporter:
         width: 1024
         height: 1024
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: aadd2e7d1610bb64f8132cb2d9061e84
-      internalID: 280054101
+      spriteID: 7b965b16be947334fa0f72047a6babc0
+      internalID: -456428572
       vertices: []
       indices: 
       edges: []
@@ -204,10 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      "Ilustrac\u0327a\u0303o_Sem_Ti\u0301tulo 3_0": 441172905
-      "Ilustrac\u0327a\u0303o_Sem_Ti\u0301tulo 3_1": -1732042776
-      "Ilustrac\u0327a\u0303o_Sem_Ti\u0301tulo 3_2": -826754927
-      "Ilustrac\u0327a\u0303o_Sem_Ti\u0301tulo 3_3": 280054101
+      "Ilustrac\u0327a\u0303o_Sem_Ti\u0301tulo 3_0": 492430351
+      "Ilustrac\u0327a\u0303o_Sem_Ti\u0301tulo 3_1": 1023165898
+      "Ilustrac\u0327a\u0303o_Sem_Ti\u0301tulo 3_2": -737522598
+      "Ilustrac\u0327a\u0303o_Sem_Ti\u0301tulo 3_3": -456428572
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

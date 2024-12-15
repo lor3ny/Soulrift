@@ -94,7 +94,7 @@ TextureImporter:
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
   - serializedVersion: 3
-    buildTarget: Windows Store Apps
+    buildTarget: Android
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
@@ -124,8 +124,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 9ca6028868982a24fa587543e1c01663
-      internalID: -772283578
+      spriteID: 1c7b4b0f4d767d04bbcb2a3dc1954a66
+      internalID: -399843590
       vertices: []
       indices: 
       edges: []
@@ -145,8 +145,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1d02f9bf75faf8a44845e7eef7727366
-      internalID: 1052269297
+      spriteID: ad1ef9235c5c5094aa0f14bd7259317d
+      internalID: -918619286
       vertices: []
       indices: 
       edges: []
@@ -166,8 +166,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 08fdea7134929ff499501b4f47d69055
-      internalID: 622855570
+      spriteID: 4d87a6dcdfec87b43b2f36296f73772c
+      internalID: -1681571800
       vertices: []
       indices: 
       edges: []
@@ -187,8 +187,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: debc7242432b17d45b8a93bd6aae6147
-      internalID: 227652890
+      spriteID: aa18a8c962512ca4abff464adf7d611c
+      internalID: 1089360971
       vertices: []
       indices: 
       edges: []
@@ -204,10 +204,10 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      "Ilustrac\u0327a\u0303o_Sem_Ti\u0301tulo 2_0": -772283578
-      "Ilustrac\u0327a\u0303o_Sem_Ti\u0301tulo 2_1": 1052269297
-      "Ilustrac\u0327a\u0303o_Sem_Ti\u0301tulo 2_2": 622855570
-      "Ilustrac\u0327a\u0303o_Sem_Ti\u0301tulo 2_3": 227652890
+      "Ilustrac\u0327a\u0303o_Sem_Ti\u0301tulo 2_0": -399843590
+      "Ilustrac\u0327a\u0303o_Sem_Ti\u0301tulo 2_1": -918619286
+      "Ilustrac\u0327a\u0303o_Sem_Ti\u0301tulo 2_2": -1681571800
+      "Ilustrac\u0327a\u0303o_Sem_Ti\u0301tulo 2_3": 1089360971
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

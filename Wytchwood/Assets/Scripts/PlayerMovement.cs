@@ -9,6 +9,10 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector2 moveInput;  // Input from the player
     private Rigidbody2D rb;     // Rigidbody2D component for movement
+    private float m_MovementSmoothing = .05f;
+
+    private Vector3 m_Velocity = Vector3.zero;
+    private Vector3 m_Movement = Vector3.zero;
 
     //private PlayerControls controls;
 
@@ -19,13 +23,16 @@ public class PlayerMovement : MonoBehaviour
 
 
     private void Update()
-    { 
-
-
-
+    {
         moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
 
-        rb.velocity = moveInput.normalized * moveSpeed;
+        m_Movement = (Vector3)moveInput.normalized * moveSpeed;
+    }
+
+
+    private void FixedUpdate()
+    {
+        rb.velocity = Vector3.SmoothDamp(rb.velocity, m_Movement, ref m_Velocity, m_MovementSmoothing);
     }
 
 }

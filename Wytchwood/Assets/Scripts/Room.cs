@@ -1,10 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.WSA;
 using static ProceduralGenerator;
 
 public class Room : MonoBehaviour
 {
+
+    private bool isSolved;
+    private int enemies;
+
+    public DoorManager[] doors;
+
+    public void Setup()
+    {
+        isSolved = true;
+        doors = GetComponentsInChildren<DoorManager>();
+        /*
+        for (int i = 0; i < doors.Length; i++)
+        {
+            doors[i].CloseDoor();
+        }
+        */
+        enemies = GetComponentsInChildren<EnemyMovement>().Length;
+    }
 
     public enum Location
     {
@@ -25,5 +44,29 @@ public class Room : MonoBehaviour
     public List<Location> GetLocations()
     {
         return locations;
+    }
+
+    public bool CheckSolved()
+    {
+        enemies = GetComponentsInChildren<EnemyMovement>().Length;
+        if(enemies == 0)
+        {
+            isSolved = true;
+        }
+        return isSolved;
+    }
+
+    public void SetSolved(bool isSolv)
+    {
+        isSolved=isSolv;
+    }
+
+    public void Activate()
+    {
+        SetSolved(false);
+        for (int i = 0; i < doors.Length; i++)
+        {
+            doors[i].CloseDoor(); 
+        }
     }
 }

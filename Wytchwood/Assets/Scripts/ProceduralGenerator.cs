@@ -64,6 +64,7 @@ public class ProceduralGenerator : MonoBehaviour
                 // Spawn
                 Room newRoom = roomsListAus[selectedRoom];
                 newRoom.gameObject.SetActive(true);
+                newRoom.GetComponent<Room>().Setup();
                 newRoom.transform.position = Vector3.zero;
  
                 switch (locations[i])

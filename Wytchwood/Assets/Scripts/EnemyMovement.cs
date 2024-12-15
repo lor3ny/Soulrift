@@ -53,8 +53,6 @@ public class EnemyMovement : MonoBehaviour
         hit = Physics2D.Raycast(transform.position, (playerPosition).normalized, 100f, layerMask);
         if (hit)
         {
-            Debug.Log(hit.collider.name);
-
             if (hit.collider.CompareTag("Player"))
             {
                 // Player is hided! Don't follow.

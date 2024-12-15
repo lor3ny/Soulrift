@@ -10,11 +10,17 @@ public class ProceduralGenerator : MonoBehaviour
 
 
     public Room startingRoom;
+    public Room endingRoom;
     public List<Room> roomsList;
     
     private List<Room> roomsSelected = new List<Room>();
     private float chanceOfOne = 100f;
-    private float decreaseAmount = 10f;
+    private float decreaseAmount = 0f;  // Probabilmente non serve
+
+    // Bisogna inserire un controllo per evitare che si sovrappongano delle rooms in livelli molto grandi
+    // Nel caso di stanza tutte grandi max un tot si può usare una matrice
+    // Per stanze con grandezze diverse bisogna valutare l'occupancy in realtime, tramite un collision detection o altro
+    // Bisogna mettere il "tappo" alle porte che non hanno connessione (creare delle porte tappo prefab e le instanzi all'occorrenza)
 
     public void StartGenerate()
     {
@@ -29,6 +35,7 @@ public class ProceduralGenerator : MonoBehaviour
     private void ProceduralGenerate()
     {
         List<Room> roomsListAus = roomsList;
+        List<Room> activatedRooms = new List<Room>();
 
         while (roomsSelected.Count > 0) 
         {
@@ -54,7 +61,10 @@ public class ProceduralGenerator : MonoBehaviour
 
                 bool goOn = FlipCoin();
                 if (!goOn)
+                {
+                    // Mettere tappo
                     continue;
+                }
 
                 int selectedRoom = FindTheRoom(locations[i], roomsListAus.Count);
                 if (selectedRoom == -1)
@@ -100,7 +110,13 @@ public class ProceduralGenerator : MonoBehaviour
 
                 roomsListAus.RemoveAt(selectedRoom);
                 roomsSelected.Add(newRoom);
+                activatedRooms.Add(newRoom);
             }
+            Debug.Log(roomsSelected.Count);
+            endingRoom.gameObject.SetActive(true);
+            endingRoom.GetComponent<Room>().Setup();
+            endingRoom.transform.position = Vector3.zero;
+            endingRoom.gameObject.transform.position = activatedRooms[activatedRooms.Count - 1].UP.transform.position - endingRoom.DOWN.transform.position;
         }
 
         Debug.Log("Map done! rooms over.");

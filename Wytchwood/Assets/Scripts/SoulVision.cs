@@ -18,7 +18,7 @@ public class SoulVision : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
 
         // Every object spawn as a soul
-        sr.color = soulColor;
+        sr.color = enemyColor;
     }
 
     private void Update()
@@ -31,7 +31,9 @@ public class SoulVision : MonoBehaviour
             if (isSoul)
             {
                 // Nothing to do
-            }else
+                sr.color = soulColor;
+            }
+            else
             {
                 // Modify status
                 sr.color = enemyColor;
@@ -40,7 +42,7 @@ public class SoulVision : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            sr.color = soulColor;
+            sr.color = enemyColor;
         }
 
     }

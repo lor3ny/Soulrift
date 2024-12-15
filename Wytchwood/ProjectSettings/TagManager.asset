@@ -3,15 +3,18 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
+  - Soul
+  - Room
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Enemy_Soul
   - Water
   - UI
-  - 
+  - Room
   - 
   - 
   - 

@@ -41,6 +41,12 @@ public class Room : MonoBehaviour
     public GameObject LEFT;
     public GameObject RIGHT;
 
+    public bool doneUP = false;
+    public bool doneDOWN = false;
+    public bool doneLEFT = false;
+    public bool doneRIGHT = false;
+
+
     public List<Location> GetLocations()
     {
         return locations;

@@ -14,7 +14,15 @@ public class Shooting : MonoBehaviour
     public float bulletSpeed;
     public float bulletDelay;
 
+    private AudioSource source;
+    public AudioClip clip;
+
     private bool hasShot = false;
+
+    private void Start()
+    {
+        source = GetComponent<AudioSource>();
+    }
 
 
     void Update()
@@ -33,7 +41,9 @@ public class Shooting : MonoBehaviour
                 bull.GetComponent<BulletManager>().sucking = false;
                 bull.transform.position = gameObject.transform.position;
                 bull.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
-            } else
+                source.PlayOneShot(clip);
+            }
+            else
             {
                 Vector2 direction = (mouseWorldPos - (Vector2)gameObject.transform.position).normalized;
                 GameObject bull = Instantiate(bullet);
@@ -41,7 +51,9 @@ public class Shooting : MonoBehaviour
                 bull.GetComponent<BulletManager>().sucking = true;
                 bull.transform.position = gameObject.transform.position;
                 bull.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
+              
             }
+            //
             hasShot = true;
             StartCoroutine(shootDelay());
         }

@@ -77,7 +77,7 @@ public class ProceduralGenerator : MonoBehaviour
 
     private void ProceduralGenerate()
     {
-        List<Room> roomsListAus = roomsList;
+        List<Room> roomsListAus = new List<Room>(roomsList);
         List<Room> activatedRooms = new List<Room>();
 
         while (roomsListAus.Count > 0) 
@@ -112,38 +112,6 @@ public class ProceduralGenerator : MonoBehaviour
                 }
                 if (!goOn)
                 {
-                    /*
-                    GameObject plug;
-                    switch (locations[i])
-                    {
-                        case Location.UP:
-                            plug = Instantiate(plugUP);
-                            plug.transform.position = pointedRoom.UP.transform.position - plug.GetComponent<Room>().DOWN.transform.position;
-                            break;
-
-                        case Location.DOWN:
-                            plug = Instantiate(plugDOWN);
-                            plug.transform.position = pointedRoom.UP.transform.position - plug.GetComponent<Room>().UP.transform.position;
-                            //newRoom.UP.SetActive(false);
-                            break;
-
-                        case Location.LEFT:
-                            plug = Instantiate(plugLEFT);
-                            plug.transform.position = pointedRoom.UP.transform.position - plug.GetComponent<Room>().RIGHT.transform.position;
-                            //newRoom.RIGHT.SetActive(false);
-                            break;
-
-                        case Location.RIGHT:
-                            plug = Instantiate(plugRIGHT);
-                            plug.transform.position = pointedRoom.UP.transform.position - plug.GetComponent<Room>().LEFT.transform.position;
-                            //newRoom.LEFT.SetActive(false);
-                            break;
-
-                        default:
-                            Debug.LogError("Problems with location on plugs!");
-                            break;
-                    }
-                    */
                     continue;
                 }
 
@@ -199,55 +167,11 @@ public class ProceduralGenerator : MonoBehaviour
 
         // Bisogna farlo con la matrice
         // Piazza la ending room bene, come fare?
-        Debug.Log(roomsSelected.Count);
+        Debug.Log(roomsList.Count);
 
-
-
-        // Bisogna farlo con la matrice
-        // Piazzazre plug
-        /*
-        for(int i = 0; i<roomsList.Count; ++i)
-        {
-            
-            List<Location> locations = roomsList[i].GetLocations();
-            Room room = roomsList[i];
-            Debug.Log(locations.Count);
-            for (int j = 0; j < locations.Count; j++)
-            {
-                GameObject plug;
-                switch (locations[j])
-                {
-                    case Location.UP:
-                        plug = Instantiate(plugUP);
-                        plug.transform.position = room.UP.transform.position - plug.GetComponent<Room>().DOWN.transform.position;
-                        break;
-
-                    case Location.DOWN:
-                        plug = Instantiate(plugDOWN);
-                        plug.transform.position = room.UP.transform.position - plug.GetComponent<Room>().UP.transform.position;
-                        //newRoom.UP.SetActive(false);
-                        break;
-
-                    case Location.LEFT:
-                        plug = Instantiate(plugLEFT);
-                        plug.transform.position = room.UP.transform.position - plug.GetComponent<Room>().RIGHT.transform.position;
-                        //newRoom.RIGHT.SetActive(false);
-                        break;
-
-                    case Location.RIGHT:
-                        plug = Instantiate(plugRIGHT);
-                        plug.transform.position = room.UP.transform.position - plug.GetComponent<Room>().LEFT.transform.position;
-                        //newRoom.LEFT.SetActive(false);
-                        break;
-
-                    default:
-                        Debug.LogError("Problems with location on plugs!");
-                        break;
-                }
-            }
-        }
-        */
-
+        Room lastRoom = roomsList[roomsList.Count - 1];
+        endingRoomUP.SetActive(true);
+        endingRoomUP.transform.position = lastRoom.UP.transform.position - endingRoomUP.GetComponent<Room>().DOWN.transform.position;
 
         // PUT PLUGS IN ENDING ROOMS
 

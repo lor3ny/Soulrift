@@ -12,6 +12,11 @@ public class Room : MonoBehaviour
 
     public DoorManager[] doors;
 
+    [HideInInspector]
+    public int x;
+    [HideInInspector]
+    public int y;
+
     public void Setup()
     {
         isSolved = true;
@@ -33,8 +38,7 @@ public class Room : MonoBehaviour
         RIGHT
     }
 
-    [SerializeField]
-    private List<Location> locations;
+    public List<Location> locations;
 
     public GameObject UP;
     public GameObject DOWN;

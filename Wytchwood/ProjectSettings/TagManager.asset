@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Soul
   - Room
+  - Connection
   layers:
   - Default
   - TransparentFX

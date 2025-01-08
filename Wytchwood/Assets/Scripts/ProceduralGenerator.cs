@@ -46,7 +46,6 @@ public class ProceduralGenerator : MonoBehaviour
         center = roomsList.Count;
 
         
-
         startingRoom.gameObject.SetActive(true);
         startingRoom.gameObject.transform.position = Vector2.zero;
         startingRoom.x = center;
@@ -59,44 +58,6 @@ public class ProceduralGenerator : MonoBehaviour
     }
 
 
-    private void ProceduralGenerator_2()
-    {
-
-        int k = 10;
-
-        // Default
-        matrix[center, center] = 1;
-        matrix[center, center+1] = 1;
-
-        // Posizionare gli 1
-        for(int i = 1; i < matSize-1; i++)
-        {
-            for (int j = 1; j < matSize-1; j++)
-            {
-                // Verifica se c'è una stanza nei riquadri vicini, se così fosse valuta se piazzare uno
-                // Se non ci sono stanze ma solo quella di default, vale solo sopra e deve essere piazzata al cento per cento
-                // Mettere tappi (markati con 2:Left, 3:Up, 4:Right, 5:Down), in uno di questi mettere ending point (markato con 6)
-
-                // Mettere effettivamente le stanza, seguendo accuratamente le posizioni nello spazio (capire quando sono grandi le stanze)
-
-
-                if(matrix[i + 1, j] == 1 || matrix[i - 1, j] == 1 || matrix[i, j + 1] == 1 || matrix[i, j - 1] == 1)
-                {
-                    Debug.Log("MAYBE");
-                    bool goOn = FlipCoin();
-                    if (!goOn)
-                    {
-                        continue;
-                    }
-                }
-            }
-        }
-
-        // Posizionare tappi
-
-        // Posizionare ending
-    }
-
     private void ProceduralGenerate()
     {
         List<Room> roomsListAus = new List<Room>(roomsList);
@@ -106,15 +67,15 @@ public class ProceduralGenerator : MonoBehaviour
 
         while (roomsListAus.Count > 0) 
         {
+            if (roomsSelected.Count == 0)
+            {
+                break;
+            }
+
             Room pointedRoom = roomsSelected[0];
             bool oneRoom = false;
             x = pointedRoom.x;
             y = pointedRoom.y;
-
-            if(roomsSelected.Count == 0)
-            {
-                return;
-            }
 
             if (matrix[x + 1, y] == 1 && matrix[x - 1, y] == 1 && matrix[x, y + 1] == 1 && matrix[x, y - 1] == 1)
             {
@@ -122,20 +83,14 @@ public class ProceduralGenerator : MonoBehaviour
                 continue;
             }
 
+            matrix[pointedRoom.x, pointedRoom.y] = 1;
+
             Debug.Log("(" + x.ToString() + ", " + y.ToString() + ")");
-            Debug.Log(chanceOfOne);
 
             Shuffle<Location>(pointedRoom.locations);
 
             for (int i = 0; i < pointedRoom.locations.Count; ++i)
             {
-
-                // Randomly decide if there is going to be a room
-                if (chanceOfOne <= 0f)
-                {
-                    Debug.Log("Map done! chances over.");
-                    return;
-                }
 
                 Debug.Log(pointedRoom.name+" Door: " + pointedRoom.locations[i]);
 
@@ -155,6 +110,7 @@ public class ProceduralGenerator : MonoBehaviour
                 int selectedRoom = FindTheRoom(pointedRoom.locations[i], roomsListAus.Count);
                 if (selectedRoom == -1)
                     continue;
+
                 Debug.Log("Selected: " + roomsListAus[selectedRoom].name);
                 oneRoom = true;
 
@@ -177,7 +133,7 @@ public class ProceduralGenerator : MonoBehaviour
                         newRoom.gameObject.transform.position = pointedRoom.UP.transform.position /*+ pointedRoom.gameObject.transform.position*/ - newRoom.DOWN.transform.position;
                         newRoom.locations.Remove(Location.DOWN);
                         pointedRoom.locations.Remove(Location.UP);
-                        matrix[x, y + 1] = 1;
+                        //matrix[x, y + 1] = 1;
                         newRoom.x = x;
                         newRoom.y = y + 1;
                         isPlaced = true;
@@ -192,7 +148,7 @@ public class ProceduralGenerator : MonoBehaviour
                         newRoom.gameObject.transform.position = pointedRoom.DOWN.transform.position /*+ pointedRoom.gameObject.transform.position*/ - newRoom.UP.transform.position;
                         newRoom.locations.Remove(Location.UP);
                         pointedRoom.locations.Remove(Location.DOWN);
-                        matrix[x, y - 1] = 1;
+                        //matrix[x, y - 1] = 1;
                         newRoom.x = x;
                         newRoom.y = y - 1;
                         isPlaced = true;
@@ -222,7 +178,7 @@ public class ProceduralGenerator : MonoBehaviour
                         newRoom.gameObject.transform.position = pointedRoom.RIGHT.transform.position /*+ pointedRoom.gameObject.transform.position*/ - newRoom.LEFT.transform.position;
                         newRoom.locations.Remove(Location.LEFT);
                         pointedRoom.locations.Remove(Location.RIGHT);
-                        matrix[x+1, y] = 1;
+                        //matrix[x+1, y] = 1;
                         newRoom.x = x+1;
                         newRoom.y = y;
                         isPlaced = true;
@@ -236,11 +192,12 @@ public class ProceduralGenerator : MonoBehaviour
                 if (isPlaced)
                 {
                     roomsListAus.RemoveAt(selectedRoom);
-                    roomsSelected.RemoveAt(0);
                     roomsSelected.Add(newRoom);
                     activatedRooms.Add(newRoom);
                 }
             }
+
+            roomsSelected.RemoveAt(0);
         }
 
 

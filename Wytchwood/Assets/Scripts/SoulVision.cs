@@ -9,15 +9,17 @@ public class SoulVision : MonoBehaviour
     public Color soulColor;
     public Color enemyColor;
 
-    public bool isSoul; 
+    public bool isSoul;
 
-    public SpriteRenderer sr;
+    public GameObject spriteSoul;
+    public GameObject spriteEnemy;
 
     private void Start()
     {
 
-        // Every object spawn as a soul
-        sr.color = enemyColor;
+        // Every object spawn as an enemy
+        spriteEnemy.SetActive(true);
+        spriteSoul.SetActive(false);
     }
 
     private void Update()
@@ -30,18 +32,21 @@ public class SoulVision : MonoBehaviour
             if (isSoul)
             {
                 // Nothing to do
-                sr.color = soulColor;
+                spriteEnemy.SetActive(false);
+                spriteSoul.SetActive(true);
             }
             else
             {
                 // Modify status
-                sr.color = enemyColor;
+                spriteEnemy.SetActive(true);
+                spriteSoul.SetActive(false);
             }
         }
 
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            sr.color = enemyColor;
+            spriteEnemy.SetActive(true);
+            spriteSoul.SetActive(false);
         }
 
     }

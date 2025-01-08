@@ -55,7 +55,6 @@ public class ProceduralGenerator : MonoBehaviour
 
         roomsSelected.Add(startingRoom);
         ProceduralGenerate(); // Forse va cambiato
-        PrintMatrix();
         
     }
 
@@ -98,22 +97,6 @@ public class ProceduralGenerator : MonoBehaviour
         // Posizionare ending
     }
 
-
-    private void PrintMatrix()
-    {
-        for (int i = 0; i < matSize; i++)
-        {
-            Debug.Log(i);
-            string matText = "[";
-            for (int j = 0; j < matSize; j++)
-            {
-                matText += matrix[i, j].ToString()+", ";
-            }
-            matText += "]";
-            Debug.Log(matText);
-        }
-    }
-
     private void ProceduralGenerate()
     {
         List<Room> roomsListAus = new List<Room>(roomsList);
@@ -127,6 +110,11 @@ public class ProceduralGenerator : MonoBehaviour
             bool oneRoom = false;
             x = pointedRoom.x;
             y = pointedRoom.y;
+
+            if(roomsSelected.Count == 0)
+            {
+                return;
+            }
 
             if (matrix[x + 1, y] == 1 && matrix[x - 1, y] == 1 && matrix[x, y + 1] == 1 && matrix[x, y - 1] == 1)
             {
@@ -176,11 +164,15 @@ public class ProceduralGenerator : MonoBehaviour
                 newRoom.GetComponent<Room>().Setup();
                 newRoom.transform.position = Vector3.zero;
 
+                bool isPlaced = false;
+
                 switch (pointedRoom.locations[i])
                 {
                     case Location.UP:
+                        Debug.Log("(" + x.ToString() + "," + (y + 1).ToString() + ")");
+                        Debug.Log(matrix[x, y + 1]);
                         if (matrix[x, y+1] == 1)
-                            continue;
+                            break;
 
                         newRoom.gameObject.transform.position = pointedRoom.UP.transform.position /*+ pointedRoom.gameObject.transform.position*/ - newRoom.DOWN.transform.position;
                         newRoom.locations.Remove(Location.DOWN);
@@ -188,11 +180,14 @@ public class ProceduralGenerator : MonoBehaviour
                         matrix[x, y + 1] = 1;
                         newRoom.x = x;
                         newRoom.y = y + 1;
+                        isPlaced = true;
                         break;
 
                     case Location.DOWN:
+                        Debug.Log("(" + x.ToString() + "," + (y-1).ToString() + ")");
+                        Debug.Log(matrix[x, y-1]);
                         if (matrix[x, y-1] == 1)
-                            continue;
+                            break;
 
                         newRoom.gameObject.transform.position = pointedRoom.DOWN.transform.position /*+ pointedRoom.gameObject.transform.position*/ - newRoom.UP.transform.position;
                         newRoom.locations.Remove(Location.UP);
@@ -200,11 +195,14 @@ public class ProceduralGenerator : MonoBehaviour
                         matrix[x, y - 1] = 1;
                         newRoom.x = x;
                         newRoom.y = y - 1;
+                        isPlaced = true;
                         break;
 
                     case Location.LEFT:
+                        Debug.Log("(" + (x - 1).ToString() + "," + y.ToString() + ")");
+                        Debug.Log(matrix[x - 1, y]);
                         if (matrix[x-1, y] == 1)
-                            continue;
+                            break;
 
                         newRoom.gameObject.transform.position = pointedRoom.LEFT.transform.position /*+ pointedRoom.gameObject.transform.position*/ - newRoom.RIGHT.transform.position;
                         newRoom.locations.Remove(Location.RIGHT);
@@ -212,11 +210,14 @@ public class ProceduralGenerator : MonoBehaviour
                         matrix[x-1, y] = 1;
                         newRoom.x = x-1;
                         newRoom.y = y;
+                        isPlaced = true;
                         break;
 
                     case Location.RIGHT:
+                        Debug.Log("(" + (x+1).ToString() + "," + y.ToString() + ")");
+                        Debug.Log(matrix[x + 1, y]);
                         if (matrix[x + 1, y] == 1)
-                            continue;
+                            break;
 
                         newRoom.gameObject.transform.position = pointedRoom.RIGHT.transform.position /*+ pointedRoom.gameObject.transform.position*/ - newRoom.LEFT.transform.position;
                         newRoom.locations.Remove(Location.LEFT);
@@ -224,6 +225,7 @@ public class ProceduralGenerator : MonoBehaviour
                         matrix[x+1, y] = 1;
                         newRoom.x = x+1;
                         newRoom.y = y;
+                        isPlaced = true;
                         break;
 
                     default:
@@ -231,26 +233,23 @@ public class ProceduralGenerator : MonoBehaviour
                         break;
                 }
 
-                roomsListAus.RemoveAt(selectedRoom);
-                roomsSelected.RemoveAt(0);
-                roomsSelected.Add(newRoom);
-                activatedRooms.Add(newRoom);
+                if (isPlaced)
+                {
+                    roomsListAus.RemoveAt(selectedRoom);
+                    roomsSelected.RemoveAt(0);
+                    roomsSelected.Add(newRoom);
+                    activatedRooms.Add(newRoom);
+                }
             }
         }
 
 
         List<GameObject> cups = new List<GameObject>();
-        bool isLast = false;
-        bool endingDone = false;
 
-        int endingCount = 0;
-        foreach (Room room in activatedRooms)
+        bool done = false;   
+        for(int i = activatedRooms.Count-1; i > 0; i--)
         {
-            if(endingCount > roomsList.Count/2 && !endingDone)
-            {
-                isLast = true;
-            }
-
+            Room room = activatedRooms[i];
             foreach (Location location in room.locations)
             {
                 GameObject ending;
@@ -258,14 +257,14 @@ public class ProceduralGenerator : MonoBehaviour
                 {
                     case Location.UP:
                         if (matrix[room.x, room.y+1] == 1)
-                            continue;
+                            break;
 
-                        if (isLast)
+                        if (!done)
                         {
-                            isLast = false;
-                            endingDone = true;
+                            Debug.Log(room.name + " Door: " + location);
                             endingRoomUP.SetActive(true);
-                            endingRoomUP.transform.position = room.UP.transform.position - endingRoomUP.GetComponent<Room>().DOWN.transform.position;
+                            endingRoomUP.transform.position = room.UP.transform.position /*+ pointedRoom.gameObject.transform.position*/ - endingRoomUP.GetComponent<Room>().UP.transform.position;
+                            done = true;
                             break;
                         }
 
@@ -279,12 +278,12 @@ public class ProceduralGenerator : MonoBehaviour
                         if (matrix[room.x, room.y - 1] == 1)
                             break;
 
-                        if (isLast)
+                        if (!done)
                         {
-                            isLast = false;
-                            endingDone = true;
+                            Debug.Log(room.name + " Door: " + location);
                             endingRoomDOWN.SetActive(true);
-                            endingRoomDOWN.transform.position = room.DOWN.transform.position - endingRoomDOWN.GetComponent<Room>().UP.transform.position;
+                            endingRoomDOWN.transform.position = room.DOWN.transform.position /*+ pointedRoom.gameObject.transform.position*/ - endingRoomDOWN.GetComponent<Room>().UP.transform.position;
+                            done = true;
                             break;
                         }
 
@@ -298,13 +297,12 @@ public class ProceduralGenerator : MonoBehaviour
                         if (matrix[room.x-1, room.y] == 1)
                             break;
 
-
-                        if (isLast)
+                        if (!done)
                         {
-                            isLast = false;
-                            endingDone = true;
+                            Debug.Log(room.name + " Door: " + location);
                             endingRoomLEFT.SetActive(true);
-                            endingRoomLEFT.transform.position = room.LEFT.transform.position - endingRoomLEFT.GetComponent<Room>().RIGHT.transform.position;
+                            endingRoomLEFT.transform.position = room.LEFT.transform.position /*+ pointedRoom.gameObject.transform.position*/ - endingRoomLEFT.GetComponent<Room>().UP.transform.position;
+                            done = true;
                             break;
                         }
 
@@ -318,15 +316,14 @@ public class ProceduralGenerator : MonoBehaviour
                         if (matrix[room.x+1, room.y] == 1)
                             break;
 
-                        if (isLast)
+                        if (!done)
                         {
-                            isLast = false;
-                            endingDone = true;
+                            Debug.Log(room.name + " Door: " + location);
                             endingRoomRIGHT.SetActive(true);
-                            endingRoomRIGHT.transform.position = room.RIGHT.transform.position - endingRoomRIGHT.GetComponent<Room>().LEFT.transform.position;
+                            endingRoomRIGHT.transform.position = room.RIGHT.transform.position /*+ pointedRoom.gameObject.transform.position*/ - endingRoomRIGHT.GetComponent<Room>().UP.transform.position;
+                            done = true;
                             break;
                         }
-
 
                         ending = Instantiate(plugRIGHT);
                         ending.transform.position = room.RIGHT.transform.position /*+ pointedRoom.gameObject.transform.position*/ - ending.GetComponent<Room>().LEFT.transform.position;
@@ -339,22 +336,8 @@ public class ProceduralGenerator : MonoBehaviour
                         break;
                 }
             }
-            endingCount++;
         }
-
-        /*
-        // Bisogna farlo con la matrice
-        // Piazza la ending room bene, come fare?
-        Debug.Log(roomsList.Count);
-
-        Room lastRoom = roomsList[roomsList.Count - 1];
-        endingRoomUP.SetActive(true);
-        endingRoomUP.transform.position = lastRoom.UP.transform.position - endingRoomUP.GetComponent<Room>().DOWN.transform.position;
-        */
-
-        // PUT PLUGS IN ENDING ROOMS
-
-        Debug.Log("Map done! rooms over.");
+        
         return;
     }
 

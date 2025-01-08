@@ -11,11 +11,10 @@ public class SoulVision : MonoBehaviour
 
     public bool isSoul; 
 
-    private SpriteRenderer sr;
+    public SpriteRenderer sr;
 
     private void Start()
     {
-        sr = GetComponent<SpriteRenderer>();
 
         // Every object spawn as a soul
         sr.color = enemyColor;

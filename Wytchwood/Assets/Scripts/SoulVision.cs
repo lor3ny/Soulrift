@@ -26,7 +26,7 @@ public class SoulVision : MonoBehaviour
     {
          
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
 
             if (isSoul)
@@ -43,7 +43,7 @@ public class SoulVision : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+        if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             spriteEnemy.SetActive(true);
             spriteSoul.SetActive(false);

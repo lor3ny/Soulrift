@@ -50,6 +50,14 @@ public class EnemyMovement : MonoBehaviour
         RaycastHit2D hit;
         Debug.DrawLine(ray.origin, ray.origin + ray.direction * 100f, Color.red);
 
+        Vector2 direction = (Vector2) (pl.position - gameObject.transform.position).normalized;
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+
+        // Apply the angle to the sprite's rotation (assuming it's a 2D sprite)
+        gameObject.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90);
+
+
         hit = Physics2D.Raycast(transform.position, (playerPosition).normalized, 100f, layerMask);
         if (hit)
         {
@@ -85,6 +93,14 @@ public class EnemyMovement : MonoBehaviour
             playerManager.AttachedUp();
             isSeen = false;
             attached = true;
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Melee"))
+        {
+            this.Sucked();
         }
     }
 

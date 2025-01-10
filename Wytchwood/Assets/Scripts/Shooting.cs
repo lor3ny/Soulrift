@@ -33,27 +33,13 @@ public class Shooting : MonoBehaviour
         Debug.DrawLine(transform.position, mouseWorldPos);
         if (Input.GetKeyDown(KeyCode.Mouse0) && hasShot == false)
         {
-            if (Input.GetKey(KeyCode.LeftShift))
-            {
-                Vector2 direction = (mouseWorldPos - (Vector2)gameObject.transform.position).normalized;
-                GameObject bull = Instantiate(bullet);
-                bull.GetComponent<SpriteRenderer>().color = Color.red;
-                bull.GetComponent<BulletManager>().sucking = false;
-                bull.transform.position = gameObject.transform.position;
-                bull.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
-                source.PlayOneShot(clip);
-            }
-            else
-            {
-                Vector2 direction = (mouseWorldPos - (Vector2)gameObject.transform.position).normalized;
-                GameObject bull = Instantiate(bullet);
-                bull.GetComponent<SpriteRenderer>().color = Color.green;
-                bull.GetComponent<BulletManager>().sucking = true;
-                bull.transform.position = gameObject.transform.position;
-                bull.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
-              
-            }
-            //
+            Vector2 direction = (mouseWorldPos - (Vector2)gameObject.transform.position).normalized;
+            GameObject bull = Instantiate(bullet);
+            bull.GetComponent<SpriteRenderer>().color = Color.red;
+            bull.transform.position = gameObject.transform.position;
+            bull.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
+            source.PlayOneShot(clip);
+
             hasShot = true;
             StartCoroutine(shootDelay());
         }

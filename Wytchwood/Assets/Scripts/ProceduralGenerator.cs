@@ -44,8 +44,7 @@ public class ProceduralGenerator : MonoBehaviour
         matSize = roomsList.Count * 2 + 1;
         matrix = new byte[matSize, matSize];
         center = roomsList.Count;
-
-        
+ 
         startingRoom.gameObject.SetActive(true);
         startingRoom.gameObject.transform.position = Vector2.zero;
         startingRoom.x = center;
@@ -116,9 +115,6 @@ public class ProceduralGenerator : MonoBehaviour
 
                 // Spawn
                 Room newRoom = roomsListAus[selectedRoom];
-                newRoom.gameObject.SetActive(true);
-                newRoom.GetComponent<Room>().Setup();
-                newRoom.transform.position = Vector3.zero;
 
                 bool isPlaced = false;
 
@@ -130,6 +126,10 @@ public class ProceduralGenerator : MonoBehaviour
                         if (matrix[x, y+1] == 1)
                             break;
 
+                        Debug.Log("Passed");
+                        newRoom.gameObject.SetActive(true);
+                        newRoom.GetComponent<Room>().Setup();
+                        newRoom.transform.position = Vector3.zero;
                         newRoom.gameObject.transform.position = pointedRoom.UP.transform.position /*+ pointedRoom.gameObject.transform.position*/ - newRoom.DOWN.transform.position;
                         newRoom.locations.Remove(Location.DOWN);
                         pointedRoom.locations.Remove(Location.UP);
@@ -145,6 +145,10 @@ public class ProceduralGenerator : MonoBehaviour
                         if (matrix[x, y-1] == 1)
                             break;
 
+                        Debug.Log("Passed");
+                        newRoom.gameObject.SetActive(true);
+                        newRoom.GetComponent<Room>().Setup();
+                        newRoom.transform.position = Vector3.zero;
                         newRoom.gameObject.transform.position = pointedRoom.DOWN.transform.position /*+ pointedRoom.gameObject.transform.position*/ - newRoom.UP.transform.position;
                         newRoom.locations.Remove(Location.UP);
                         pointedRoom.locations.Remove(Location.DOWN);
@@ -160,6 +164,10 @@ public class ProceduralGenerator : MonoBehaviour
                         if (matrix[x-1, y] == 1)
                             break;
 
+                        Debug.Log("Passed");
+                        newRoom.gameObject.SetActive(true);
+                        newRoom.GetComponent<Room>().Setup();
+                        newRoom.transform.position = Vector3.zero;
                         newRoom.gameObject.transform.position = pointedRoom.LEFT.transform.position /*+ pointedRoom.gameObject.transform.position*/ - newRoom.RIGHT.transform.position;
                         newRoom.locations.Remove(Location.RIGHT);
                         pointedRoom.locations.Remove(Location.LEFT);
@@ -175,6 +183,9 @@ public class ProceduralGenerator : MonoBehaviour
                         if (matrix[x + 1, y] == 1)
                             break;
 
+                        newRoom.gameObject.SetActive(true);
+                        newRoom.GetComponent<Room>().Setup();
+                        newRoom.transform.position = Vector3.zero;
                         newRoom.gameObject.transform.position = pointedRoom.RIGHT.transform.position /*+ pointedRoom.gameObject.transform.position*/ - newRoom.LEFT.transform.position;
                         newRoom.locations.Remove(Location.LEFT);
                         pointedRoom.locations.Remove(Location.RIGHT);

@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class TriggerEntrance : MonoBehaviour
 {
-
-    private DoorManager door;
+    [HideInInspector]
+    public DoorManager door;
 
     public bool roomActivator;
-    private bool firstTime = true;
+
+    [HideInInspector]
+    public bool firstTime = true;
 
 
     private void Start()
@@ -20,36 +22,21 @@ public class TriggerEntrance : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
 
-        if (!roomActivator)
-            return;  
-
-        if (roomActivator && firstTime)
-        {
-            door.ActivateRoom();
-            firstTime = false;
-        }
-
         if (collision.CompareTag("Player"))
         {
             door.OpenDoor();
         }
     }
 
+
     private void OnTriggerExit2D(Collider2D collision)
     {
-
-        if (roomActivator)
+        if (firstTime)
             return;
-
-        if (roomActivator && firstTime)
-        {
-            door.ActivateRoom();
-            firstTime = false;
-        }
 
         if (collision.CompareTag("Player"))
         {
-            door.OpenDoor();
+            door.CloseDoor();
         }
     }
 }

@@ -9,8 +9,13 @@ public class GameManager : MonoBehaviour
 
     private ProceduralGenerator pg;
 
+    public bool isTheBase;
+
     void Start()
     {
+
+        if (isTheBase)
+            return;
         pg = GetComponent<ProceduralGenerator>();
         pg.StartGenerate();
     }

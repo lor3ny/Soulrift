@@ -6,26 +6,43 @@ public class SoulVisionManager : MonoBehaviour
 {
 
     private Camera _camera;
+    private PlayerManager _player;
 
 
     public Color soulVisionUp;
     public Color soulVisionDown;
 
 
+
     private void Start()
     {
         _camera = Camera.main;
         _camera.backgroundColor = soulVisionDown;
+        _player = GetComponent<PlayerManager>();
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        ActivateSoulVision();
+        DeactivateSoulVision();
+    }
+
+
+    private void ActivateSoulVision()
+    { 
+        if (_player.visions <= 0)
+            return;
+
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             _camera.backgroundColor = soulVisionUp;
+            _player.SpendSouls(1);
         }
+    }
 
-        if (Input.GetKeyUp(KeyCode.Space))
+    private void DeactivateSoulVision()
+    {
+        if (Input.GetKeyUp(KeyCode.LeftShift))
         {
             _camera.backgroundColor = soulVisionDown;
         }

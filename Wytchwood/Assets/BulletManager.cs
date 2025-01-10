@@ -9,8 +9,6 @@ public class BulletManager : MonoBehaviour
 
     private PlayerManager pl;
 
-    public bool sucking = false;
-
 
     private void Start()
     {
@@ -26,14 +24,7 @@ public class BulletManager : MonoBehaviour
 
         if (collision.CompareTag("Enemy") || collision.CompareTag("Soul"))
         {
-            if (sucking)
-            {
-                collision.GetComponent<EnemyMovement>().Sucked();
-            }
-            else
-            {
-                collision.GetComponent<EnemyMovement>().Death();
-            }
+            collision.GetComponent<EnemyMovement>().Death();
             Destroy(gameObject);
         }
     }

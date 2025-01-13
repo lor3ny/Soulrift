@@ -11,12 +11,10 @@ public class EnemyMovement : MonoBehaviour
     private bool isSeen = false;
     private Vector3 playerPosition;
     private Transform pl;
-    private PlayerManager playerManager;
     private Rigidbody2D rb;
     private int layerMask;
     private Vector3 startPosition;
-
-    public SoulVision vision;
+    private EnemyManager enemyManager;
 
     private bool plHit;
     private Vector2 attachPos;
@@ -25,8 +23,7 @@ public class EnemyMovement : MonoBehaviour
     void Start()
     {
         pl = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        playerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
-        vision = GetComponent<SoulVision>();
+        enemyManager = GetComponent<EnemyManager>();
         rb = GetComponent<Rigidbody2D>();
         string[] layers = { "Enemy_Soul" };
         layerMask = ~LayerMask.GetMask(layers);
@@ -64,7 +61,6 @@ public class EnemyMovement : MonoBehaviour
         {
             if (hit.collider.CompareTag("Player"))
             {
-                // Player is hided! Don't follow.
                 isSeen = true;
                 Debug.Log("I see you!");
             }
@@ -74,15 +70,9 @@ public class EnemyMovement : MonoBehaviour
             }
         }
 
-        if (!isSeen) return;
+        if (!isSeen) 
+            return;
         rb.MovePosition(rb.position + movePosition);
-    }
-
-    private void FixedUpdate()
-    {
-        if (!isSeen) return;
-
-        rb.AddForce(playerPosition.normalized * speed);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -108,37 +98,7 @@ public class EnemyMovement : MonoBehaviour
     {
         if (collision.CompareTag("Melee"))
         {
-            this.Sucked();
+            enemyManager.Sucked();
         }
     }
-
-    public void Death()
-    {
-        Destroy(gameObject);
-        if (vision.isSoul)
-        {
-            playerManager.SoulHitsUp();
-        } else
-        {
-            playerManager.EnemyHitsUp();
-        }
-    }
-
-    public void Sucked()
-    {
-        Destroy(gameObject); // Cambiare
-        if (vision.isSoul)
-        {
-            Destroy(gameObject);
-            playerManager.SoulSuckedUp();
-        }
-        else
-        {
-            Destroy(gameObject);
-            playerManager.EnemySuckedUp();
-        }
-    }
-
-
-
 }

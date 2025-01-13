@@ -58,7 +58,7 @@ public class Room : MonoBehaviour
 
     public bool CheckSolved()
     {
-        enemies = GetComponentsInChildren<EnemyMovement>().Length;
+        enemies = GetComponentsInChildren<EnemyManager>().Length;
         if(enemies == 0)
         {
             isSolved = true;

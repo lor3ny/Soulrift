@@ -6,20 +6,20 @@ public class LevelEnd : MonoBehaviour
 {
 
 
-    private GameManager gameManager;
+    private PlayerManager playerManager;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        playerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            gameManager.LevelFinished();
+            playerManager.LevelFinished();
         }
     }
 }

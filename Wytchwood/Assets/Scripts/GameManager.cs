@@ -13,21 +13,20 @@ public class GameManager : MonoBehaviour
     public bool isTheBase;
     public GameObject spawn;
 
+
+    public Animator nextlevelAnimator;
+
     void Start()
     {
 
         player = GameObject.FindGameObjectWithTag("Player");
         player.transform.position = spawn.transform.position;
+        nextlevelAnimator = GameObject.Find("NextlevelScreen").GetComponent<Animator>();
 
         if (isTheBase)
             return;
 
         pg = GetComponent<ProceduralGenerator>();
         pg.StartGenerate();
-    }
-
-    public void LevelFinished()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
 }

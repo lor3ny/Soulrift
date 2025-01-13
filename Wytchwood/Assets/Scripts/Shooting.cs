@@ -35,6 +35,7 @@ public class Shooting : MonoBehaviour
         {
             Vector2 direction = (mouseWorldPos - (Vector2)gameObject.transform.position).normalized;
             GameObject bull = Instantiate(bullet);
+            bull.GetComponent<BulletManager>().Initialize(false);
             bull.GetComponent<SpriteRenderer>().color = Color.red;
             bull.transform.position = gameObject.transform.position;
             bull.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;

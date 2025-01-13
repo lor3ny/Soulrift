@@ -1,0 +1,110 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using static Unity.VisualScripting.Member;
+
+public class ShooterMovement : MonoBehaviour
+{
+
+
+    private Vector3 playerPosition;
+    private Transform pl;
+    private bool isSeen = false;
+    private int layerMask;
+    private Rigidbody2D rb;
+
+    public GameObject bullet;
+    private bool hasShot = false;
+
+    [SerializeField]
+    private float movementSpeed = 1;
+    public float bulletSpeed;
+    public float bulletDelay;
+    public float distanceFromPlayer;
+    private AudioSource source;
+    public AudioClip clip;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        pl = GameObject.FindGameObjectWithTag("Player").transform;
+        rb = GetComponent<Rigidbody2D>();
+        string[] layers = { "Enemy_Soul" };
+        layerMask = ~LayerMask.GetMask(layers);
+    }
+
+    void Update()
+    {
+        // DIRECTION COMPUTATION
+        playerPosition = pl.position - transform.position;
+        Vector2 direction = (Vector2)playerPosition.normalized;
+
+
+        // DEBUG
+        Ray ray = new Ray(transform.position, playerPosition);
+        Debug.DrawLine(ray.origin, ray.origin + ray.direction * 100f, Color.red);
+        // DEBUG
+
+
+        // ROTATION
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        gameObject.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90);
+
+
+
+        // RAYCAST FOR SHOOTING
+        RaycastHit2D hit;
+        hit = Physics2D.Raycast(transform.position, (playerPosition).normalized, 100f, layerMask);
+        if (hit)
+        {
+            if (hit.collider.CompareTag("Player"))
+            {
+                // Player is hided! Don't follow.
+                isSeen = true;
+            }
+            else
+            {
+                isSeen = false;
+            }
+        }
+
+
+        // MOVEMENT
+
+        if(playerPosition.magnitude > distanceFromPlayer && isSeen)
+        {
+            Vector2 movePosition = direction * movementSpeed * Time.deltaTime;
+            rb.MovePosition(rb.position + movePosition);
+        }
+
+        // SHOOTING
+        if (isSeen)
+        {
+            Shoot();
+        }
+
+    }
+
+    private void Shoot()
+    {
+        if (hasShot == true)
+            return;
+         
+        Vector2 direction = playerPosition.normalized;
+        GameObject bull = Instantiate(bullet);
+        bull.GetComponent<BulletManager>().Initialize(true);
+        bull.GetComponent<SpriteRenderer>().color = Color.red;
+        bull.transform.position = gameObject.transform.position;
+        bull.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
+        //source.PlayOneShot(clip);
+
+        hasShot = true;
+        StartCoroutine(shootDelay());
+    }
+
+    IEnumerator shootDelay()
+    {
+        yield return new WaitForSeconds(bulletDelay);
+        hasShot = false;
+    }
+}

@@ -18,7 +18,7 @@ public class EnemyMovement : MonoBehaviour
 
     public SoulVision vision;
 
-    private bool attached;
+    private bool plHit;
     private Vector2 attachPos;
 
 
@@ -31,16 +31,15 @@ public class EnemyMovement : MonoBehaviour
         string[] layers = { "Enemy_Soul" };
         layerMask = ~LayerMask.GetMask(layers);
         startPosition = transform.position;
-        attached = false;
+        plHit = false;
     }
 
 
     void Update()
     {
 
-        if (attached)
+        if (plHit)
         {
-            transform.position = pl.position - (Vector3) attachPos;
             return;
         }
 
@@ -57,6 +56,8 @@ public class EnemyMovement : MonoBehaviour
         // Apply the angle to the sprite's rotation (assuming it's a 2D sprite)
         gameObject.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90);
 
+        Vector2 movePosition = direction * speed * Time.deltaTime;
+
 
         hit = Physics2D.Raycast(transform.position, (playerPosition).normalized, 100f, layerMask);
         if (hit)
@@ -72,6 +73,9 @@ public class EnemyMovement : MonoBehaviour
                 isSeen = false;
             }
         }
+
+        if (!isSeen) return;
+        rb.MovePosition(rb.position + movePosition);
     }
 
     private void FixedUpdate()
@@ -85,15 +89,19 @@ public class EnemyMovement : MonoBehaviour
     {
         if (collision.collider.CompareTag("Player"))
         {
-            playerPosition = pl.position - transform.position;
-            attachPos = playerPosition;
-            GetComponent<Collider2D>().enabled = false;
-            rb.velocity = Vector3.zero;
-            rb.bodyType = RigidbodyType2D.Static;
-            playerManager.AttachedUp();
             isSeen = false;
-            attached = true;
+            rb.constraints = RigidbodyConstraints2D.FreezeAll;
+            plHit = true;
+
+            StartCoroutine(hitWait());
         }
+    }
+
+    IEnumerator hitWait()
+    {
+        yield return new WaitForSeconds(4);
+        rb.constraints = RigidbodyConstraints2D.None;
+        plHit = false;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine;
 using System;
+using Unity.VisualScripting;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -21,7 +22,8 @@ public class PlayerMovement : MonoBehaviour
     //private PlayerControls controls;
 
     private void Awake()
-    {
+    { 
+
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
     }

@@ -215,7 +215,7 @@ public class ProceduralGenerator : MonoBehaviour
         List<GameObject> cups = new List<GameObject>();
 
         bool done = false;   
-        for(int i = activatedRooms.Count-1; i > 0; i--)
+        for(int i = activatedRooms.Count-1; i >= 0; i--)
         {
             Room room = activatedRooms[i];
             foreach (Location location in room.locations)

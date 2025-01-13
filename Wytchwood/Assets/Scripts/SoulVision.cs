@@ -22,33 +22,16 @@ public class SoulVision : MonoBehaviour
         spriteSoul.SetActive(false);
     }
 
-    private void Update()
+    public void ActivateSoul()
     {
-         
+        spriteEnemy.SetActive(false);
+        spriteSoul.SetActive(true);
+    }
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-
-            if (isSoul)
-            {
-                // Nothing to do
-                spriteEnemy.SetActive(false);
-                spriteSoul.SetActive(true);
-            }
-            else
-            {
-                // Modify status
-                spriteEnemy.SetActive(true);
-                spriteSoul.SetActive(false);
-            }
-        }
-
-        if (Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            spriteEnemy.SetActive(true);
-            spriteSoul.SetActive(false);
-        }
-
+    public void DeactivateSoul()
+    {
+        spriteEnemy.SetActive(true);
+        spriteSoul.SetActive(false);
     }
 
 }

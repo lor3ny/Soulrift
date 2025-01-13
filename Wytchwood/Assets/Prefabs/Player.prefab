@@ -432,7 +432,10 @@ MonoBehaviour:
   sHit: {fileID: 0}
   eSucked: {fileID: 0}
   sSucked: {fileID: 0}
-  lives: 3
+  textVisions: {fileID: 0}
+  lifeImgs: []
+  maxLives: 3
+  visions: 0
 --- !u!114 &3403189210807997030
 MonoBehaviour:
   m_ObjectHideFlags: 0

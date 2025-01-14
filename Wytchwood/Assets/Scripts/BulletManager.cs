@@ -42,6 +42,11 @@ public class BulletManager : MonoBehaviour
                 collision.GetComponent<EnemyManager>().Death();
                 Destroy(gameObject);
             }
+
+            if (collision.CompareTag("Boss"))
+            {
+                collision.GetComponent<BossLife>().DecreaseLife(1);
+            }
         }
     }
 }

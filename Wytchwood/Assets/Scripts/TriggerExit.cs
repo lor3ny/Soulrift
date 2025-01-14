@@ -8,20 +8,15 @@ public class TriggerExit : MonoBehaviour
 
     public TriggerEntrance entrance;
 
-
-
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            if (entrance.roomActivator && entrance.firstTime)
+            if (entrance.firstTime)
             {
                 entrance.door.ActivateRoom();
                 entrance.firstTime = false;
             }
-
-            entrance.door.CloseDoor();
-            gameObject.SetActive(false);
         }
     }
 }

@@ -5,6 +5,17 @@ using UnityEngine;
 
 public class SetupCamera : MonoBehaviour
 {
+
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+
+        if (FindObjectsOfType<SetupCamera>().Length > 1)
+        {
+            Destroy(gameObject);
+        }
+    }
     private void Start()
     {
         CinemachineVirtualCamera cam = GetComponent<CinemachineVirtualCamera>();

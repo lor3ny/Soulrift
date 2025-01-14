@@ -7,6 +7,7 @@ public class DoorManager : MonoBehaviour
 
     private SpriteRenderer door;
     private Collider2D collider;
+    public TriggerEntrance entrance;
     public Room room;
 
 
@@ -14,16 +15,16 @@ public class DoorManager : MonoBehaviour
     {
         door = GetComponent<SpriteRenderer>();
         collider = GetComponent<Collider2D>();
+        entrance = GetComponentInChildren<TriggerEntrance>();
     }
-
 
     public void OpenDoor()
     {
-        if (!room.CheckSolved())
-            return;
-
-        door.enabled = false;
-        collider.enabled = false;
+        if (room.CheckSolved() || entrance.firstTime)
+        {
+            door.enabled = false;
+            collider.enabled = false;
+        }
     }
 
     public void OpenDoor(bool bypass)

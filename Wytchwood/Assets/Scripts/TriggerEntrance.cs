@@ -6,11 +6,10 @@ public class TriggerEntrance : MonoBehaviour
 {
     [HideInInspector]
     public DoorManager door;
-
-    public bool roomActivator;
-
     [HideInInspector]
     public bool firstTime = true;
+    [HideInInspector]
+    public bool isSolved = false;
 
 
     private void Start()
@@ -21,7 +20,6 @@ public class TriggerEntrance : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
         if (collision.CompareTag("Player"))
         {
             door.OpenDoor();
@@ -30,8 +28,6 @@ public class TriggerEntrance : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (firstTime)
-            return;
 
         if (collision.CompareTag("Player"))
         {

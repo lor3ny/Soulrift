@@ -368,6 +368,7 @@ MonoBehaviour:
   soulColor: {r: 0, g: 1, b: 0.7764706, a: 1}
   enemyColor: {r: 1, g: 0, b: 0, a: 1}
   isSoul: 0
+  notAffect: 0
   spriteSoul: {fileID: 7075733701761915089}
   spriteEnemy: {fileID: 3967801318000093065}
 --- !u!114 &1560922460278520602
@@ -382,7 +383,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c354195bc6e54b641944834d56ba9e22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 50
+  speed: 20
 --- !u!114 &7920087181622262333
 MonoBehaviour:
   m_ObjectHideFlags: 0

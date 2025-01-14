@@ -21,12 +21,6 @@ public class Room : MonoBehaviour
     {
         isSolved = true;
         doors = GetComponentsInChildren<DoorManager>();
-        /*
-        for (int i = 0; i < doors.Length; i++)
-        {
-            doors[i].CloseDoor();
-        }
-        */
         enemies = GetComponentsInChildren<EnemyMovement>().Length;
     }
 
@@ -59,9 +53,14 @@ public class Room : MonoBehaviour
     public bool CheckSolved()
     {
         enemies = GetComponentsInChildren<EnemyManager>().Length;
-        if(enemies == 0)
+        int boss = GameObject.FindGameObjectsWithTag("Boss").Length;
+        if(enemies+boss == 0)
         {
             isSolved = true;
+            for (int i = 0; i < doors.Length; i++)
+            {
+                doors[i].entrance.isSolved = true;
+            }
         }
         return isSolved;
     }

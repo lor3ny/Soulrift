@@ -15,7 +15,7 @@ public class PlayerManager : MonoBehaviour
     public Animator nextlevelAnimator;
 
     public TMP_Text textVisions;
-    public GameObject[] lifeImgs;
+    public List<GameObject> lifeImgs;
 
 
     public int maxLives;
@@ -23,6 +23,7 @@ public class PlayerManager : MonoBehaviour
     public int visions;
 
     private int lives;
+    private List<GameObject> lifeImgsCopy;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
@@ -43,6 +44,12 @@ public class PlayerManager : MonoBehaviour
         lives = maxLives;
         deathAnimator = GameObject.Find("DeathScreen").GetComponent<Animator>();
         nextlevelAnimator = GameObject.Find("NextlevelScreen").GetComponent<Animator>();
+        lifeImgsCopy = new List<GameObject>();
+        for (int i = 0; i < lifeImgs.Count; i++)
+        {
+            //Debug.Log(lifeImgs[i].name);
+            lifeImgsCopy.Add(lifeImgs[i]);
+        }
         UpdateUI();
     }
 
@@ -57,14 +64,19 @@ public class PlayerManager : MonoBehaviour
     public void GeneralHit()
     {
         lives--;
-        for (int i = 0; i < maxLives; i++)
-        {
-            lifeImgs[i].gameObject.SetActive(false);
-        }
+
         for (int i = 0; i < lives; i++)
         {
             lifeImgs[i].SetActive(true);
         }
+        for (int i = lives; i < maxLives; i++)
+        {
+            lifeImgs[i].gameObject.SetActive(false);
+            lifeImgs.RemoveAt(i);
+        }
+
+        maxLives -= (maxLives - lives);
+
         if (lives == 0)
         {
             this.Death();
@@ -73,6 +85,8 @@ public class PlayerManager : MonoBehaviour
 
     private void Death()
     {
+
+        gameObject.GetComponent<Collider2D>().enabled = false;
         deathAnimator.SetTrigger("Dead");
         StartCoroutine(WaitDeadAnimation(4f));
     }
@@ -82,6 +96,27 @@ public class PlayerManager : MonoBehaviour
         yield return new WaitForSeconds(time);
         SceneManager.LoadScene(0);
         yield return new WaitForSeconds(time/1.5f);
+
+        // RESET THE GAME
+        visions = 0;
+        enemiesHitted = 0;
+        enemiesSucked = 0;
+        soulsSucked = 0;
+        soulsHitted = 0;
+        gameObject.GetComponent<Collider2D>().enabled = true;
+        maxLives = 3;
+        lives = maxLives;
+        soulsSucked = 0;
+
+        /*
+        for (int i = 0; i < lifeImgsCopy.Count; i++)
+        {
+            lifeImgs.Add(lifeImgsCopy[i]);
+            lifeImgs[i].SetActive(true);
+        }
+        */
+        // RESET THE GAME
+
         deathAnimator.SetTrigger("LiveAgain");
     }
 
@@ -96,7 +131,6 @@ public class PlayerManager : MonoBehaviour
         yield return new WaitForSeconds(time);
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         yield return new WaitForSeconds(time / 1.5f);
-        Debug.Log("HEEREEEEEEEEEEEEE");
         nextlevelAnimator.SetTrigger("Startlevel");
     }
 
@@ -130,6 +164,17 @@ public class PlayerManager : MonoBehaviour
         soulsSucked += 1;
         visions += 1;
         UpdateUI();
+    }
+
+    public int GetSouls()
+    {
+        return soulsSucked;
+    }
+
+    public void IncreaseLives(int count)
+    {
+        this.lives += count;
+        this.maxLives += count;
     }
 
     public void SpendSouls(int souls)

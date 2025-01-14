@@ -9,6 +9,7 @@ TagManager:
   - Room
   - Connection
   - Melee
+  - Boss
   layers:
   - Default
   - TransparentFX

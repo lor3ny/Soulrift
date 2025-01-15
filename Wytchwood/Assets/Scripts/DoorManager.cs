@@ -5,25 +5,25 @@ using UnityEngine;
 public class DoorManager : MonoBehaviour
 {
 
-    private SpriteRenderer door;
     private Collider2D collider;
     public TriggerEntrance entrance;
     public Room room;
+    private Animator animator;
 
 
     private void Start()
     {
-        door = GetComponent<SpriteRenderer>();
         collider = GetComponent<Collider2D>();
         entrance = GetComponentInChildren<TriggerEntrance>();
+        animator = GetComponent<Animator>();
     }
 
     public void OpenDoor()
     {
         if (room.CheckSolved() || entrance.firstTime)
         {
-            door.enabled = false;
             collider.enabled = false;
+            animator.SetTrigger("Open");
         }
     }
 
@@ -31,15 +31,15 @@ public class DoorManager : MonoBehaviour
     {
         if (bypass)
         {
-            door.enabled = false;
             collider.enabled = false;
+            animator.SetTrigger("Open");
         }
     }
 
     public void CloseDoor()
     {
-        door.enabled = true;
         collider.enabled = true;
+        animator.SetTrigger("Close");
     }
 
     public void ActivateRoom()

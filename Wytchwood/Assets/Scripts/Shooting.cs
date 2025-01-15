@@ -13,11 +13,13 @@ public class Shooting : MonoBehaviour
     public GameObject bullet;
     public float bulletSpeed;
     public float bulletDelay;
+    public GameObject gun;
 
     private AudioSource source;
     public AudioClip clip;
 
     private bool hasShot = false;
+
 
     private void Start()
     {
@@ -30,20 +32,23 @@ public class Shooting : MonoBehaviour
 
         mousePos = (Vector2) Input.mousePosition;
         mouseWorldPos = (Vector2) Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane));
+        Vector2 direction = (mouseWorldPos - (Vector2)gameObject.transform.position).normalized;
         Debug.DrawLine(transform.position, mouseWorldPos);
         if (Input.GetKeyDown(KeyCode.Mouse0) && hasShot == false)
         {
-            Vector2 direction = (mouseWorldPos - (Vector2)gameObject.transform.position).normalized;
             GameObject bull = Instantiate(bullet);
             bull.GetComponent<BulletManager>().Initialize(false);
-            bull.GetComponent<SpriteRenderer>().color = Color.red;
-            bull.transform.position = gameObject.transform.position;
+            bull.transform.position = gun.transform.position + (Vector3) direction*2;
             bull.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
             source.PlayOneShot(clip);
 
             hasShot = true;
             StartCoroutine(shootDelay());
         }
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        gun.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
     }
 
 

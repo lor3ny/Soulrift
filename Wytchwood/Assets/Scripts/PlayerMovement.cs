@@ -42,10 +42,13 @@ public class PlayerMovement : MonoBehaviour
         {
             anim.SetBool("IsWalking", true);
         }
+
+
+
         if (m_Movement.x > 0)
         {
             sprite.GetComponent<SpriteRenderer>().flipX = false;
-        } else
+        } else if(m_Movement.x < 0)
         {
             sprite.GetComponent<SpriteRenderer>().flipX = true;
         }

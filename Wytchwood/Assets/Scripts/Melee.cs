@@ -7,12 +7,14 @@ public class Melee : MonoBehaviour
 
     public GameObject meleeDir;
     public float meleeTime;
+    private Animator animator;
 
 
     // Start is called before the first frame update
     void Start()
     {
         meleeDir.SetActive(false);
+        animator = GameObject.Find("Gun_sprite").GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -33,6 +35,7 @@ public class Melee : MonoBehaviour
         {
             Debug.Log("Melee");
             meleeDir.SetActive(true);
+            animator.SetTrigger("Melee");
             StartCoroutine(StopMelee());
         }
     }

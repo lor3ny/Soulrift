@@ -16,7 +16,12 @@ public class TurretManager : MonoBehaviour
     public bool rotating;
 
     public Transform[] bulletPoints;
+    private Animator animator;
 
+    private void Start()
+    {
+        animator = GetComponentInChildren<Animator>();
+    }
 
     void Update()
     {
@@ -25,11 +30,6 @@ public class TurretManager : MonoBehaviour
 
     private void Shoot()
     {
-
-        if (rotating)
-        {
-            // APPLY ROTATION
-        }
 
         if (hasShot)
             return;
@@ -41,6 +41,7 @@ public class TurretManager : MonoBehaviour
             bull.GetComponent<SpriteRenderer>().color = Color.red;
             bull.transform.position = gameObject.transform.position;
             bull.GetComponent<Rigidbody2D>().velocity = (bulletPoints[i].position - gameObject.transform.position).normalized * bulletSpeed;
+            animator.SetTrigger("Shoot");
             //source.PlayOneShot(clip);
         }
       

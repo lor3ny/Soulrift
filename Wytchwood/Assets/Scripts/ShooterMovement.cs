@@ -16,6 +16,8 @@ public class ShooterMovement : MonoBehaviour
     public GameObject bullet;
     private bool hasShot = false;
 
+    public GameObject sprite;
+
     [SerializeField]
     private float movementSpeed = 1;
     public float bulletSpeed;
@@ -45,13 +47,6 @@ public class ShooterMovement : MonoBehaviour
         Debug.DrawLine(ray.origin, ray.origin + ray.direction * 100f, Color.red);
         // DEBUG
 
-
-        // ROTATION
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        gameObject.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90);
-
-
-
         // RAYCAST FOR SHOOTING
         RaycastHit2D hit;
         hit = Physics2D.Raycast(transform.position, (playerPosition).normalized, 100f, layerMask);
@@ -70,8 +65,16 @@ public class ShooterMovement : MonoBehaviour
 
 
         // MOVEMENT
+        if (direction.x > 0)
+        {
+            sprite.GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else if (direction.x < 0)
+        {
+            sprite.GetComponent<SpriteRenderer>().flipX = true;
+        }
 
-        if(playerPosition.magnitude > distanceFromPlayer && isSeen)
+        if (playerPosition.magnitude > distanceFromPlayer && isSeen)
         {
             Vector2 movePosition = direction * movementSpeed * Time.deltaTime;
             rb.MovePosition(rb.position + movePosition);

@@ -39,7 +39,7 @@ public class BulletManager : MonoBehaviour
         {
             if (collision.CompareTag("Enemy") || collision.CompareTag("Soul"))
             {
-                collision.GetComponent<EnemyManager>().Death();
+                collision.GetComponent<EnemyManager>().DecreaseLife();
                 Destroy(gameObject);
             }
 

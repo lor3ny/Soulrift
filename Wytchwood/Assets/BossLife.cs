@@ -11,6 +11,8 @@ public class BossLife : MonoBehaviour
     public Slider lifeUI;
     private float bossLife;
 
+    private Animator animator;
+
 
 
     private void Start()
@@ -18,6 +20,7 @@ public class BossLife : MonoBehaviour
         lifeUI.maxValue = maxBossLife;
         lifeUI.value = maxBossLife;
         bossLife = maxBossLife;
+        animator = GetComponentInChildren<Animator>();
     }
 
 
@@ -31,6 +34,7 @@ public class BossLife : MonoBehaviour
 
     public void DecreaseLife(float value)
     {
+        animator.SetTrigger("Hit");
         bossLife -= value;
         if(bossLife <= 0)
         {

@@ -10,6 +10,7 @@ TagManager:
   - Connection
   - Melee
   - Boss
+  - Bullet
   layers:
   - Default
   - TransparentFX

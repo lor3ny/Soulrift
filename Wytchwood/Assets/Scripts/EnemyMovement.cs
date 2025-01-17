@@ -19,6 +19,9 @@ public class EnemyMovement : MonoBehaviour
     private bool plHit;
     private Vector2 attachPos;
 
+    public GameObject spriteEnemy;
+    public GameObject spriteSoul;
+
 
     void Start()
     {
@@ -48,10 +51,16 @@ public class EnemyMovement : MonoBehaviour
 
         Vector2 direction = (Vector2) (pl.position - gameObject.transform.position).normalized;
 
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-
-        // Apply the angle to the sprite's rotation (assuming it's a 2D sprite)
-        gameObject.transform.rotation = Quaternion.Euler(0f, 0f, angle - 90);
+        if (direction.x > 0)
+        {
+            spriteEnemy.GetComponent<SpriteRenderer>().flipX = false;
+            spriteSoul.GetComponent<SpriteRenderer>().flipX = false;
+        }
+        else if (direction.x < 0)
+        {
+            spriteEnemy.GetComponent<SpriteRenderer>().flipX = true;
+            spriteSoul.GetComponent<SpriteRenderer>().flipX = true;
+        }
 
         Vector2 movePosition = direction * speed * Time.deltaTime;
 

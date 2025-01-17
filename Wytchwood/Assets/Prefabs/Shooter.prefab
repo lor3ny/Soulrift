@@ -271,7 +271,7 @@ MonoBehaviour:
   sprite: {fileID: 3967801318000093065}
   movementSpeed: 5
   bulletSpeed: 10
-  bulletDelay: 5
+  bulletDelay: 1
   distanceFromPlayer: 7
   clip: {fileID: 0}
 --- !u!114 &6021865354922388629

@@ -31,6 +31,9 @@ public class SoulVision : MonoBehaviour
         if (notAffect)
             return;
 
+        if (!isSoul)
+            return;
+
         spriteEnemy.SetActive(false);
         spriteSoul.SetActive(true);
     }
@@ -38,6 +41,9 @@ public class SoulVision : MonoBehaviour
     public void DeactivateSoul()
     {
         if (notAffect)
+            return;
+        
+        if (!isSoul)
             return;
 
         spriteEnemy.SetActive(true);

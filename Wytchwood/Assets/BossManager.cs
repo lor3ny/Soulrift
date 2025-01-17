@@ -16,6 +16,8 @@ public class BossManager : MonoBehaviour
     private BossLife life;
     private bool rotate;
 
+    public GameObject sprite;
+
     public void InitializeBoss()
     {
         isDead = false;
@@ -31,7 +33,7 @@ public class BossManager : MonoBehaviour
     {
         if (rotate)
         {
-            transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
+            sprite.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
         }
     }
 

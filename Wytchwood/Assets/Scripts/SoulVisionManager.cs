@@ -50,6 +50,8 @@ public class SoulVisionManager : MonoBehaviour
             {
                 souls[i].GetComponent<SoulVision>().ActivateSoul();
             }
+
+            Time.timeScale = 0.25f;  
         }
     }
 
@@ -67,6 +69,8 @@ public class SoulVisionManager : MonoBehaviour
             {
                 souls[i].GetComponent<SoulVision>().DeactivateSoul();
             }
+
+            Time.timeScale = 1.0f;
         }
     }
 }

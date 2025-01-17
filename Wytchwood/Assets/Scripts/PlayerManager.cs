@@ -39,7 +39,7 @@ public class PlayerManager : MonoBehaviour
         visions = 0;
         enemiesHitted = 0;
         enemiesSucked = 0;
-        soulsSucked = 0;
+        soulsSucked = 5;
         soulsHitted = 0;
         lives = maxLives;
         deathAnimator = GameObject.Find("DeathScreen").GetComponent<Animator>();
@@ -87,6 +87,7 @@ public class PlayerManager : MonoBehaviour
     {
 
         gameObject.GetComponent<Collider2D>().enabled = false;
+        gameObject.GetComponent<PlayerMovement>().enabled = false;
         deathAnimator.SetTrigger("Dead");
         StartCoroutine(WaitDeadAnimation(4f));
     }
@@ -94,7 +95,7 @@ public class PlayerManager : MonoBehaviour
     IEnumerator WaitDeadAnimation(float time)
     {
         yield return new WaitForSeconds(time);
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
         yield return new WaitForSeconds(time/1.5f);
 
         // RESET THE GAME
@@ -108,13 +109,13 @@ public class PlayerManager : MonoBehaviour
         lives = maxLives;
         soulsSucked = 0;
 
-        /*
+        
         for (int i = 0; i < lifeImgsCopy.Count; i++)
         {
             lifeImgs.Add(lifeImgsCopy[i]);
             lifeImgs[i].SetActive(true);
         }
-        */
+        
         // RESET THE GAME
 
         deathAnimator.SetTrigger("LiveAgain");
@@ -136,7 +137,7 @@ public class PlayerManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        textVisions.SetText(visions.ToString());
+        textVisions.SetText("x"+visions.ToString());
     }
 
     public void EnemyHitsUp()

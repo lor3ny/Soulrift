@@ -88,6 +88,7 @@ public class PlayerManager : MonoBehaviour
 
         gameObject.GetComponent<Collider2D>().enabled = false;
         gameObject.GetComponent<PlayerMovement>().enabled = false;
+        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
         deathAnimator.SetTrigger("Dead");
         StartCoroutine(WaitDeadAnimation(4f));
     }
@@ -115,7 +116,11 @@ public class PlayerManager : MonoBehaviour
             lifeImgs.Add(lifeImgsCopy[i]);
             lifeImgs[i].SetActive(true);
         }
-        
+
+        gameObject.GetComponent<PlayerMovement>().enabled = true;
+        gameObject.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
+        gameObject.GetComponent<Collider2D>().enabled = true;
+
         // RESET THE GAME
 
         deathAnimator.SetTrigger("LiveAgain");

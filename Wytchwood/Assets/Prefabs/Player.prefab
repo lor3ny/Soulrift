@@ -323,8 +323,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6830519470079330966}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.055, y: -0.126, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.045000006, y: -0.126, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -522,9 +522,10 @@ MonoBehaviour:
   crosshair: {fileID: 0}
   bullet: {fileID: 4603173479721088508, guid: 53a5fa9fd07ba2a46997d35020b32185, type: 3}
   bulletSpeed: 10
-  bulletDelay: 0
+  bulletDelay: 0.45
   gun: {fileID: 6830519470079330966}
-  clip: {fileID: 0}
+  clip: {fileID: 8300000, guid: 43a75df57ac8e4258bc546a07742c7c3, type: 3}
+  anim: {fileID: 5512826680570970670}
 --- !u!114 &5018591875009766819
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -553,6 +554,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soulVisionUp: {r: 1, g: 0, b: 0, a: 1}
   soulVisionDown: {r: 0.8, g: 0.972549, b: 1, a: 1}
+  clip: {fileID: 8300000, guid: b94234ddc63344567bd5bd816205b48b, type: 3}
 --- !u!114 &4175783356728710454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -584,6 +586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   meleeDir: {fileID: 4668884368795920437}
   meleeTime: 0.1
+  clip: {fileID: 0}
 --- !u!82 &183761296746168837
 AudioSource:
   m_ObjectHideFlags: 0

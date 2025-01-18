@@ -4,12 +4,18 @@ using UnityEngine;
 
 public class FirstSouls : MonoBehaviour
 {
+
+    public AudioClip clip;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
             collision.GetComponent<PlayerManager>().SoulSuckedUp();
-            gameObject.SetActive(false);
+            GetComponent<AudioSource>().PlayOneShot(clip, 0.5f);
+            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<Collider2D>().enabled = false;
         }
     }
+
 }

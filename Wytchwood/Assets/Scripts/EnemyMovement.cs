@@ -22,7 +22,7 @@ public class EnemyMovement : MonoBehaviour
     public GameObject spriteEnemy;
     public GameObject spriteSoul;
 
-
+    private Vector2 movePosition;
     void Start()
     {
         pl = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
@@ -62,7 +62,7 @@ public class EnemyMovement : MonoBehaviour
             spriteSoul.GetComponent<SpriteRenderer>().flipX = true;
         }
 
-        Vector2 movePosition = direction * speed * Time.deltaTime;
+        movePosition = direction * speed;
 
 
         hit = Physics2D.Raycast(transform.position, (playerPosition).normalized, 100f, layerMask);
@@ -81,7 +81,11 @@ public class EnemyMovement : MonoBehaviour
 
         if (!isSeen) 
             return;
-        rb.MovePosition(rb.position + movePosition);
+    }
+
+    private void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + movePosition * Time.deltaTime);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

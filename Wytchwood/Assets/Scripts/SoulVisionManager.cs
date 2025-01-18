@@ -17,18 +17,21 @@ public class SoulVisionManager : MonoBehaviour
     private GameObject[] souls;
 
 
+    private AudioSource AudioSource;
+    public AudioClip clip;
+
 
     private void Start()
     {
         _camera = Camera.main;
         _camera.backgroundColor = soulVisionDown;
+        AudioSource = GetComponent<AudioSource>();
         _player = GetComponent<PlayerManager>();
     }
 
     private void Update()
     {
         ActivateSoulVision();
-        DeactivateSoulVision();
     }
 
 
@@ -38,7 +41,8 @@ public class SoulVisionManager : MonoBehaviour
             return;
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
+        { 
+
             _camera = Camera.main;
 
             souls = GameObject.FindGameObjectsWithTag("Soul");
@@ -51,26 +55,37 @@ public class SoulVisionManager : MonoBehaviour
                 souls[i].GetComponent<SoulVision>().ActivateSoul();
             }
 
-            Time.timeScale = 0.25f;  
+            AudioSource.loop = true;
+            AudioSource.PlayOneShot(clip, 0.5f);
+
+            Time.timeScale = 0.25f;
+
+            StartCoroutine(VisionDuration());
         }
+    }
+
+    IEnumerator VisionDuration()
+    {
+        yield return new WaitForSecondsRealtime(2.5f);
+        DeactivateSoulVision();
     }
 
     private void DeactivateSoulVision()
     {
-        if (Input.GetKeyUp(KeyCode.LeftShift))
+        _camera = Camera.main;
+
+        _camera.backgroundColor = soulVisionDown;
+
+        souls = GameObject.FindGameObjectsWithTag("Soul");
+
+        for (int i = 0; i < souls.Length; i++)
         {
-            _camera = Camera.main;
-
-            _camera.backgroundColor = soulVisionDown;
-
-            souls = GameObject.FindGameObjectsWithTag("Soul");
-
-            for (int i = 0; i < souls.Length; i++)
-            {
-                souls[i].GetComponent<SoulVision>().DeactivateSoul();
-            }
-
-            Time.timeScale = 1.0f;
+            souls[i].GetComponent<SoulVision>().DeactivateSoul();
         }
+
+        AudioSource.Stop();
+        AudioSource.loop = false;
+
+        Time.timeScale = 1.0f;
     }
 }

@@ -7,6 +7,7 @@ public class Melee : MonoBehaviour
 
     public GameObject meleeDir;
     public float meleeTime;
+    public AudioClip clip;
     private Animator animator;
 
 
@@ -35,6 +36,7 @@ public class Melee : MonoBehaviour
         {
             Debug.Log("Melee");
             meleeDir.SetActive(true);
+            GetComponent<AudioSource>().PlayOneShot(clip, 0.5f);
             animator.SetTrigger("Melee");
             StartCoroutine(StopMelee());
         }

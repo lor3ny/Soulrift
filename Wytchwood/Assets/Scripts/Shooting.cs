@@ -20,6 +20,8 @@ public class Shooting : MonoBehaviour
 
     private bool hasShot = false;
 
+    public Animator anim;
+
 
     private void Start()
     {
@@ -33,21 +35,21 @@ public class Shooting : MonoBehaviour
         mousePos = (Vector2) Input.mousePosition;
         mouseWorldPos = (Vector2) Camera.main.ScreenToWorldPoint(new Vector3(mousePos.x, mousePos.y, Camera.main.nearClipPlane));
         Vector2 direction = (mouseWorldPos - (Vector2)gameObject.transform.position).normalized;
-        Debug.DrawLine(transform.position, mouseWorldPos);
+
+        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+        gun.transform.rotation = Quaternion.Euler(0f, 0f, angle);
+
         if (Input.GetKeyDown(KeyCode.Mouse0) && hasShot == false)
         {
             GameObject bull = Instantiate(bullet);
             bull.GetComponent<BulletManager>().Initialize(false);
             bull.transform.position = gun.transform.position + (Vector3) direction*2;
             bull.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
-            source.PlayOneShot(clip);
-
+            source.PlayOneShot(clip, 0.2f);
+            anim.SetTrigger("Shoot");
             hasShot = true;
             StartCoroutine(shootDelay());
         }
-
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        gun.transform.rotation = Quaternion.Euler(0f, 0f, angle);
 
     }
 

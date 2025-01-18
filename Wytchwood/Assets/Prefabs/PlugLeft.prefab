@@ -57,8 +57,8 @@ GameObject:
   - component: {fileID: 312034283780016155}
   - component: {fileID: 5752550803403145995}
   - component: {fileID: 1568365937312044401}
-  - component: {fileID: 5561660322380778989}
-  - component: {fileID: 3353380823036557226}
+  - component: {fileID: 9082205029759049301}
+  - component: {fileID: 4350608308085927907}
   m_Layer: 6
   m_Name: PlugLeft
   m_TagString: Room
@@ -413,7 +413,7 @@ TilemapRenderer:
   m_Mode: 0
   m_DetectChunkCullingBounds: 0
   m_MaskInteraction: 0
---- !u!114 &5561660322380778989
+--- !u!114 &9082205029759049301
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -437,7 +437,7 @@ MonoBehaviour:
   doneDOWN: 0
   doneLEFT: 0
   doneRIGHT: 0
---- !u!19719996 &3353380823036557226
+--- !u!19719996 &4350608308085927907
 TilemapCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

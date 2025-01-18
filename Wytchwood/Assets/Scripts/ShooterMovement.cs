@@ -26,12 +26,15 @@ public class ShooterMovement : MonoBehaviour
     private AudioSource source;
     public AudioClip clip;
 
+    private Vector2 movePosition;
+
     // Start is called before the first frame update
     void Start()
     {
         pl = GameObject.FindGameObjectWithTag("Player").transform;
         rb = GetComponent<Rigidbody2D>();
         string[] layers = { "Enemy_Soul" };
+        source = GetComponent<AudioSource>();
         layerMask = ~LayerMask.GetMask(layers);
     }
 
@@ -76,8 +79,8 @@ public class ShooterMovement : MonoBehaviour
 
         if (playerPosition.magnitude > distanceFromPlayer && isSeen)
         {
-            Vector2 movePosition = direction * movementSpeed * Time.deltaTime;
-            rb.MovePosition(rb.position + movePosition);
+            movePosition = direction * movementSpeed;
+            rb.MovePosition(rb.position + movePosition * Time.deltaTime);
         }
 
         // SHOOTING
@@ -86,6 +89,11 @@ public class ShooterMovement : MonoBehaviour
             Shoot();
         }
 
+    }
+
+    private void FixedUpdate()
+    {
+        rb.MovePosition(rb.position + movePosition * Time.deltaTime);
     }
 
     private void Shoot()
@@ -99,7 +107,7 @@ public class ShooterMovement : MonoBehaviour
         bull.GetComponent<SpriteRenderer>().color = Color.red;
         bull.transform.position = gameObject.transform.position;
         bull.GetComponent<Rigidbody2D>().velocity = direction * bulletSpeed;
-        //source.PlayOneShot(clip);
+        source.PlayOneShot(clip, 0.1f);
 
         hasShot = true;
         StartCoroutine(shootDelay());

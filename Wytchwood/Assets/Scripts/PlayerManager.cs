@@ -174,7 +174,7 @@ public class PlayerManager : MonoBehaviour
 
     public int GetSouls()
     {
-        return soulsSucked;
+        return visions;
     }
 
     public void IncreaseLives(int count)

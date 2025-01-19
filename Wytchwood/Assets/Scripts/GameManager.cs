@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         Debug.Log("Start boss fight with: "+soulsCount.ToString()+" souls");
 
         Vector2 life1 = GameObject.Find("life_1").transform.position;
-        life1 = new Vector2(life1.x + 140, life1.y+5);
+        life1 = new Vector2(life1.x + 440, life1.y+5);
 
 
         for (int i = 0; i<soulsCount; i++)
@@ -77,7 +77,7 @@ public class GameManager : MonoBehaviour
 
             newlife.transform.SetParent(livesParent.transform);
 
-            Vector2 pos = new Vector2(life1.x + 40*i, life1.y);
+            Vector2 pos = new Vector2(life1.x + 80*i, life1.y);
             newlife.transform.position = pos;
             player.lifeImgs.Add(newlife);
         }

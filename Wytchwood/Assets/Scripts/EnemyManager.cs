@@ -40,6 +40,7 @@ public class EnemyManager : MonoBehaviour
         if (turret)
         {
             GetComponent<AudioSource>().PlayOneShot(clipTurret, 0.4f);
+            GetComponent<TurretManager>().enabled = false;
         }
         else if (basic)
         {
@@ -47,6 +48,7 @@ public class EnemyManager : MonoBehaviour
         } else if (shooter)
         {
             GetComponent<AudioSource>().PlayOneShot(clipShooter, 0.5f);
+            GetComponent<ShooterMovement>().enabled = false;
         }
 
         if (vision.isSoul)

@@ -28,17 +28,6 @@ public class DoorManager : MonoBehaviour
             GetComponent<AudioSource>().PlayOneShot(clip, 0.3f);
         }
     }
-
-    public void OpenDoor(bool bypass)
-    {
-        if (bypass)
-        {
-            collider.enabled = false;
-            animator.SetTrigger("Open");
-            GetComponent<AudioSource>().PlayOneShot(clip, 0.3f);
-        }
-    }
-
     public void CloseDoor()
     {
         collider.enabled = true;

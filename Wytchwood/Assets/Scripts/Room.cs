@@ -20,6 +20,7 @@ public class Room : MonoBehaviour
     {
         isSolved = true;
         doors = GetComponentsInChildren<DoorManager>();
+        Debug.Log(doors.Length);
         enemies = GetComponentsInChildren<EnemyMovement>().Length;
     }
 
@@ -74,7 +75,8 @@ public class Room : MonoBehaviour
         SetSolved(false);
         for (int i = 0; i < doors.Length; i++)
         {
-            doors[i].CloseDoor(); 
+            doors[i].CloseDoor();
+            doors[i].entrance.firstTime = false;
         }
     }
 }

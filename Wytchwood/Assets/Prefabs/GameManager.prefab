@@ -77,10 +77,11 @@ MonoBehaviour:
   isTheBase: 0
   isBossFight: 0
   spawn: {fileID: 5310922454268083462}
-  extraLife: {fileID: 0}
+  extraLife: {fileID: 4208454397589473690, guid: 14a0c200a0a96f84c8fafc16270cf3dd, type: 3}
   baseClip: {fileID: 8300000, guid: 7a7c09049d27b874a925b6173e12bf4f, type: 3}
   normalClip: {fileID: 8300000, guid: 5a8265c8da8cd344cbbf71ace9b70074, type: 3}
   bossClip: {fileID: 8300000, guid: 88a6dfb952df230469e8db5ad5cf5fda, type: 3}
+  source: {fileID: 0}
 --- !u!82 &8752033461580098999
 AudioSource:
   m_ObjectHideFlags: 0

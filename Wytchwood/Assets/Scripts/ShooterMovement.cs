@@ -28,6 +28,8 @@ public class ShooterMovement : MonoBehaviour
 
     private Vector2 movePosition;
 
+    private bool isOuter;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -80,7 +82,10 @@ public class ShooterMovement : MonoBehaviour
         if (playerPosition.magnitude > distanceFromPlayer && isSeen)
         {
             movePosition = direction * movementSpeed;
-            rb.MovePosition(rb.position + movePosition * Time.deltaTime);
+            isOuter = true;
+        } else
+        {
+            isOuter = false;
         }
 
         // SHOOTING
@@ -93,7 +98,10 @@ public class ShooterMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.MovePosition(rb.position + movePosition * Time.deltaTime);
+        if (isOuter && isSeen)
+        {
+            rb.MovePosition(rb.position + movePosition * Time.deltaTime);
+        }
     }
 
     private void Shoot()

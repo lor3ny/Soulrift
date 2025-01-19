@@ -79,12 +79,13 @@ public class EnemyMovement : MonoBehaviour
             }
         }
 
-        if (!isSeen) 
-            return;
     }
 
     private void FixedUpdate()
     {
+        if (!isSeen)
+            return;
+
         rb.MovePosition(rb.position + movePosition * Time.deltaTime);
     }
 

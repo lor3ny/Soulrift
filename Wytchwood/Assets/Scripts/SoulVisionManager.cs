@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class SoulVisionManager : MonoBehaviour
 {
@@ -16,6 +17,9 @@ public class SoulVisionManager : MonoBehaviour
     private GameObject[] enemies;
     private GameObject[] souls;
 
+    private Volume normalVolume;
+    private Volume visionVolume;
+
 
     private AudioSource AudioSource;
     public AudioClip clip;
@@ -27,6 +31,12 @@ public class SoulVisionManager : MonoBehaviour
         _camera.backgroundColor = soulVisionDown;
         AudioSource = GetComponent<AudioSource>();
         _player = GetComponent<PlayerManager>();
+
+        normalVolume = GameObject.Find("NormalVolume").GetComponent<Volume>();
+        visionVolume = GameObject.Find("VisionVolume").GetComponent<Volume>();
+
+        normalVolume.enabled = true;
+        visionVolume.enabled = false;
     }
 
     private void Update()
@@ -46,6 +56,12 @@ public class SoulVisionManager : MonoBehaviour
             _camera = Camera.main;
 
             souls = GameObject.FindGameObjectsWithTag("Soul");
+
+            normalVolume = GameObject.Find("NormalVolume").GetComponent<Volume>();
+            visionVolume = GameObject.Find("VisionVolume").GetComponent<Volume>();
+
+            normalVolume.enabled = false;
+            visionVolume.enabled = true;
 
             _camera.backgroundColor = soulVisionUp;
             _player.SpendSouls(1);
@@ -73,6 +89,12 @@ public class SoulVisionManager : MonoBehaviour
     private void DeactivateSoulVision()
     {
         _camera = Camera.main;
+
+        normalVolume = GameObject.Find("NormalVolume").GetComponent<Volume>();
+        visionVolume = GameObject.Find("VisionVolume").GetComponent<Volume>();
+
+        normalVolume.enabled = true;
+        visionVolume.enabled = false;
 
         _camera.backgroundColor = soulVisionDown;
 

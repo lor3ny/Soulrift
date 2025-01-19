@@ -31,6 +31,7 @@ public class EnemyManager : MonoBehaviour
         // APPLY SOME EFFECTS: PARTICLES AND SOUND
 
         SpriteRenderer[] sprites = GetComponentsInChildren<SpriteRenderer>();
+        GetComponent<Collider2D>().enabled = false;
         foreach (SpriteRenderer sprite in sprites)
         {
             sprite.enabled = false;

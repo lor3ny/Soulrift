@@ -33,7 +33,7 @@ public class BossManager : MonoBehaviour
     {
         if (rotate)
         {
-            sprite.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
+            gameObject.transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);
         }
     }
 
@@ -47,23 +47,25 @@ public class BossManager : MonoBehaviour
             Vector2 startingPosition = transform.position;
             for (int i = 0; i < jumps.Count; i++)
             {
+                yield return new WaitForSeconds(0.5f);
                 gameObject.transform.position = jumps[i].position;
-                shooting.Shoot();
-                // SHOOT
-                yield return new WaitForSeconds(delay);
+                for(int j = 0; j < 20; j++)
+                {
+                    shooting.Shoot();
+                    yield return new WaitForSeconds(0.1f);
+                }
+                
             }
             gameObject.transform.position = startingPosition;
-            shooting.Shoot();
-            yield return new WaitForSeconds(delay);
             
 
             // ROUTINE 2
             rotate = true;
             yield return new WaitForSeconds(delay);
-            for (int i = 0; i < jumps.Count; i++)
+            for (int i = 0; i < 20; i++)
             {
                 shooting.Shoot();
-                yield return new WaitForSeconds(delay/3);
+                yield return new WaitForSeconds(0.3f);
             }
             rotate = false;
         }

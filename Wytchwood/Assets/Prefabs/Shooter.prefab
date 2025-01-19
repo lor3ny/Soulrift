@@ -289,6 +289,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vision: {fileID: 0}
   life: 5
+  clipShooter: {fileID: 8300000, guid: 81faf7d19d033ab478f243aba026b1ca, type: 3}
+  clipBasic: {fileID: 8300000, guid: 611ddb63418b77343a2c4ca2c6374614, type: 3}
+  clipTurret: {fileID: 8300000, guid: bc53e91e70d13514f8f35f41a7c50b81, type: 3}
+  turret: 0
+  basic: 0
+  shooter: 1
 --- !u!114 &7110900414978399632
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10,6 +10,14 @@ public class EnemyManager : MonoBehaviour
     public float life;
     private Animator animator;
 
+    public AudioClip clipShooter;
+    public AudioClip clipBasic;
+    public AudioClip clipTurret;
+
+    public bool turret;
+    public bool basic;
+    public bool shooter;
+
     void Start()
     {
         playerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
@@ -22,7 +30,24 @@ public class EnemyManager : MonoBehaviour
 
         // APPLY SOME EFFECTS: PARTICLES AND SOUND
 
-        Destroy(gameObject);
+        SpriteRenderer[] sprites = GetComponentsInChildren<SpriteRenderer>();
+        foreach (SpriteRenderer sprite in sprites)
+        {
+            sprite.enabled = false;
+        }
+
+        if (turret)
+        {
+            GetComponent<AudioSource>().PlayOneShot(clipTurret, 0.4f);
+        }
+        else if (basic)
+        {
+            GetComponent<AudioSource>().PlayOneShot(clipBasic, 1.2f);
+        } else if (shooter)
+        {
+            GetComponent<AudioSource>().PlayOneShot(clipShooter, 0.5f);
+        }
+
         if (vision.isSoul)
         {
             playerManager.SoulHitsUp();
@@ -31,6 +56,14 @@ public class EnemyManager : MonoBehaviour
         {
             playerManager.EnemyHitsUp();
         }
+
+
+        StartCoroutine(destroyEnemy());
+    }
+    IEnumerator destroyEnemy()
+    {
+        yield return new WaitForSecondsRealtime(2);
+        Destroy(gameObject);
     }
 
     public void Sucked()

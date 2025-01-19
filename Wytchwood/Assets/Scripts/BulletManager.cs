@@ -10,6 +10,9 @@ public class BulletManager : MonoBehaviour
     private PlayerManager pl;
     private bool initialized = false;
 
+    public AudioClip enemyClip;
+    public AudioClip playerClip;
+
     public void Initialize(bool isToPlayer)
     {
         pl = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
@@ -33,20 +36,37 @@ public class BulletManager : MonoBehaviour
             if (collision.CompareTag("Player"))
             {
                 collision.GetComponent<PlayerManager>().GeneralHit();
-                Destroy(gameObject);
+                GetComponent<SpriteRenderer>().enabled = false;
+                GetComponent<Collider2D>().enabled = false;
+                GetComponent<AudioSource>().PlayOneShot(playerClip, 1.2f);
+                StartCoroutine(destroyDelay());
             }
         } else
         {
             if (collision.CompareTag("Enemy") || collision.CompareTag("Soul"))
             {
                 collision.GetComponent<EnemyManager>().DecreaseLife();
-                Destroy(gameObject);
+                GetComponent<SpriteRenderer>().enabled = false;
+                GetComponent<Collider2D>().enabled = false;
+                GetComponent<AudioSource>().PlayOneShot(enemyClip, 0.3f);
+                StartCoroutine(destroyDelay());
             }
 
             if (collision.CompareTag("Boss"))
             {
                 collision.GetComponent<BossLife>().DecreaseLife(1);
+                GetComponent<SpriteRenderer>().enabled = false;
+                GetComponent<Collider2D>().enabled = false;
+                GetComponent<AudioSource>().PlayOneShot(enemyClip, 0.2f);
+                StartCoroutine(destroyDelay());
             }
         }
+    }
+
+
+    IEnumerator destroyDelay()
+    {
+        yield return new WaitForSecondsRealtime(2);
+        Destroy(gameObject);
     }
 }

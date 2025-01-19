@@ -15,23 +15,40 @@ public class GameManager : MonoBehaviour
     public GameObject spawn;
 
     public GameObject extraLife;
+    public AudioClip baseClip;
+    public AudioClip normalClip;
+    public AudioClip bossClip;
+
+
+    [HideInInspector]
+    public AudioSource source;
 
     void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
         player.transform.position = spawn.transform.position;
+        source = GetComponent<AudioSource>();
 
         if (isTheBase)
         {
+            source.loop = true;
+            source.clip = baseClip;
+            source.Play();
             return;
         }
         else if (isBossFight)
         {
+            source.loop = true;
+            source.clip = bossClip;
+            source.Play();
             InitializeBossFight();
             return;
         }
         else
         {
+            source.loop = true;
+            source.clip = normalClip;
+            source.Play();
             pg = GetComponent<ProceduralGenerator>();
             pg.StartGenerate();
             return;

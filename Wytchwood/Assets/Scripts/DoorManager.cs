@@ -9,6 +9,7 @@ public class DoorManager : MonoBehaviour
     public TriggerEntrance entrance;
     public Room room;
     private Animator animator;
+    public AudioClip clip;
 
 
     private void Start()
@@ -24,6 +25,7 @@ public class DoorManager : MonoBehaviour
         {
             collider.enabled = false;
             animator.SetTrigger("Open");
+            GetComponent<AudioSource>().PlayOneShot(clip, 0.3f);
         }
     }
 
@@ -33,6 +35,7 @@ public class DoorManager : MonoBehaviour
         {
             collider.enabled = false;
             animator.SetTrigger("Open");
+            GetComponent<AudioSource>().PlayOneShot(clip, 0.3f);
         }
     }
 
